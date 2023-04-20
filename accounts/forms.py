@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email', 'password1', 'password2',)
+        fields = ('username', 'email',)
     
     username = forms.CharField(
         label='회원이름',
@@ -27,27 +27,13 @@ class CustomUserCreationForm(UserCreationForm):
         )
     )
 
-    password1 = forms.CharField(
-        label='비밀번호',
-        widget=forms.PasswordInput({
-        'placeholder' : '비밀번호'
-        }
-        )
-    )
-
-    password2 = forms.CharField(
-        label='비밀번호 확인',
-        widget=forms.PasswordInput({
-        'placeholder' : '비밀번호 확인'
-        }
-        )
-    )
 
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email', 'password1', 'password2',)
+        fields = ('username', 'email', 'password')
+
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -64,12 +50,4 @@ class CustomAuthenticationForm(AuthenticationForm):
         )
     )
     
-    password = forms.CharField(
-        label='비밀번호',
-        widget=forms.PasswordInput(
-        {
-            'placeholder' : '비밀번호',
-        }
-        )
-    )
 

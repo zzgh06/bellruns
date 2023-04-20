@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div>
+    <p>{{ post.select1_content }}</p>
+    <p>{{ post.select2_content }}</p>
+  </div>
+  <a href="{% url 'posts:index' %}">[home]</a>
+  {% if request.user == post.user %}
+      <form action="{% url 'posts:delete' post.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+  {% endif %}
+{% endblock content %}
