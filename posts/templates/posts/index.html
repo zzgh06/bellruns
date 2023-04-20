@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Index</h1>
+  <h2>{{ request.user }}</h2>
+  {% if request.user.is_authenticated %}
+    <div>
+      <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="로그아웃">
+      </form>
+      <a href="{% url 'posts:create' %}">[글 작성]</a>
+    </div>
+  {% else %}
+    <div>
+      <a href="{% url 'accounts:login' %}">[로그인]</a>
+      <a href="{% url 'accounts:signup' %}">[회원가입]</a>
+    </div>
+  {% endif %}
+  <hr>
+  {% for post in posts %}
+    <div>
+      <p>
+        {{ post.title }}
+      </p>
+    </div>
+    <a href="{% url 'posts:detail' post.pk %}">[주제보기]</a>
+  {% endfor %}
+{% endblock content %}

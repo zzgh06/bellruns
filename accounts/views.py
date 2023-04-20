@@ -43,4 +43,4 @@ def signup(request):
     context = {
         'form': form,
     }
-    return render(request, 'posts/login.html', context)
+    return render(request, 'accounts/signup.html', context)

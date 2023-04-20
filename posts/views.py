@@ -24,7 +24,9 @@ def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
             return redirect('posts:index')
     else:
         form = PostForm()
