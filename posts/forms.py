@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,9 @@ class PostForm(forms.ModelForm):
             'select1_image' : '첫번째 이미지',
             'select2_image': '두번째 이미지'
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)

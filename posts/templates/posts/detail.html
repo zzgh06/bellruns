@@ -43,4 +43,31 @@
     </form>
   {% endif %}
   <a href="{% url 'posts:index' %}">[뒤로가기]</a>
+
+  <form action="{% url 'posts:comment_create' post.pk %}" method='POST'>
+    {% csrf_token %}
+    {{ comment_form }}
+    <button type="submit">댓글 작성</button>
+  </form>
+  <hr>
+
+  <div>
+    <h4>댓글 목록</h4>
+    <p>전체 댓글 : {{ comments|length }}</p>
+  </div>
+  <ul>
+    {% for comment in comments %}
+    <li>
+        {{ comment.content }}
+        {% if request.user == comment.user %}
+        <form action="{% url 'posts:comment_delete' post.pk comment.pk %}" method='POST'>
+          {% csrf_token %}
+          <button type="submit">댓글 삭제</button>
+        </form>
+        {% endif %}
+    </li>
+  {% empty %}
+    <p>댓글이 없어요</p>
+  {% endfor %}
+  </ul>
 {% endblock content %}
