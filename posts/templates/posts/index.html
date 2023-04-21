@@ -9,7 +9,7 @@
         {% csrf_token %}
         <input type="submit" value="로그아웃">
       </form>
-      <a href="{% url 'posts:create' %}">[글 작성]</a>
+      <a href="{% url 'posts:create_post' %}">[글 작성]</a>
     </div>
   {% else %}
     <div>
@@ -25,5 +25,6 @@
       </p>
     </div>
     <a href="{% url 'posts:detail' post.pk %}">[주제보기]</a>
+    <hr>
   {% endfor %}
 {% endblock content %}
