@@ -2,15 +2,29 @@
 
 {% block content %}
   <h1>{{ post.title }}</h1>
-  <div>
-    <p>{{ post.select1_content }}</p>
-    <p>{{ post.select2_content }}</p>
-  </div>
-  <a href="{% url 'posts:index' %}">[home]</a>
+  <form action="{% url 'posts:detail' post.pk %}" method="post">
+    {% csrf_token %}
+    <input type="radio" id="select1" name="answer" value="select1">
+    <label for="select1">{{ post.select1_content }}</label><br>
+    <input type="radio" id="select2" name="answer" value="select2">
+    <label for="select2">{{ post.select2_content }}</label><br>
+    <button type="submit">제출</button>
+  </form>
+  <ul>
+    <div>
+      <li>
+        <p>{{ post.select1_content }}이 좋아!! : {{ post.select1_users.count }}</p>
+      </li>
+      <li>
+        <p>{{ post.select2_content }}이 좋아!! : {{ post.select2_users.count }}</p>
+      </li>
+    </div>
+  </ul>
   {% if request.user == post.user %}
-      <form action="{% url 'posts:delete' post.pk %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="삭제">
-      </form>
+    <form action="{% url 'posts:delete' post.pk %}" method='POST'>
+      {% csrf_token %}
+      <button type="submit">삭제</button>
+    </form>
   {% endif %}
+  <a href="{% url 'posts:index' %}">[뒤로가기]</a>
 {% endblock content %}
